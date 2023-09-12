@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Weather Notificator</title>
+<script>
+    function submitForm() {
+        var apiKey = document.getElementById("apiKey").value;
+        var coordinates = document.getElementById("coordinates").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "WeatherServlet", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var result = xhr.responseText;
+                document.getElementById("result").innerHTML = result;
+            }
+        };
+        xhr.send("apiKey=" + apiKey + "&coordinates=" + coordinates);
+    }
+</script>
+</head>
+<body>
+    <h1>Weather Notificator</h1>
+    <form>
+        API Key: <input type="text" id="apiKey"><br>
+        Coordinates: <input type="text" id="coordinates"><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>
